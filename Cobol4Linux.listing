@@ -1,0 +1,254 @@
+1PP 5737-L11 IBM COBOL for Linux                     1.1.0                Date 07/30/2021  Time 13:16:53   Page     1               
+0Options in effect:
+  NOADATA                                                                                                                            
+    ADDR(32)                                                                                                                         
+    QUOTE                                                                                                                            
+    ARITH(COMPAT)                                                                                                                    
+    BINARY(NATIVE)                                                                                                                   
+    CALLINT(NODESCRIPTOR)                                                                                                            
+    CHAR(NATIVE)                                                                                                                     
+  NOCICS                                                                                                                             
+    COLLSEQ(BINARY)                                                                                                                  
+  NOCOMPILE(S)                                                                                                                       
+  NOCURRENCY                                                                                                                         
+    DATETIME(1900,40)                                                                                                                
+  NODATEPROC                                                                                                                         
+  NODEFINE                                                                                                                           
+  NODIAGTRUNC                                                                                                                        
+  NODYNAM                                                                                                                            
+  NOEXIT                                                                                                                             
+    FLAG(I,I)                                                                                                                        
+  NOFLAGSTD                                                                                                                          
+    FLOAT(NATIVE)                                                                                                                    
+    LINECOUNT(60)                                                                                                                    
+  NOLIST                                                                                                                             
+    LSTFILE(LOCALE)                                                                                                                  
+  NOMAP                                                                                                                              
+    MAXMEM(2048K)                                                                                                                    
+  NOMDECK                                                                                                                            
+    NCOLLSEQ(BINARY)                                                                                                                 
+    NSYMBOL(NATIONAL)                                                                                                                
+  NONUMBER                                                                                                                           
+  NOOPTIMIZE                                                                                                                         
+    PGMNAME(LONGUPPER)                                                                                                               
+    SEPOBJ                                                                                                                           
+    SEQUENCE                                                                                                                         
+    SIZE(8388608)                                                                                                                    
+  NOSOSI                                                                                                                             
+    SOURCE                                                                                                                           
+    SPACE(1)                                                                                                                         
+    SPILL(512)                                                                                                                       
+  NOSQL                                                                                                                              
+    SRCFORMAT(COMPAT)                                                                                                                
+  NOSSRANGE                                                                                                                          
+    TERM                                                                                                                             
+  NOTEST                                                                                                                             
+  NOTHREAD                                                                                                                           
+    TRUNC(STD)                                                                                                                       
+    UTF16(NATIVE)                                                                                                                    
+  NOVBREF                                                                                                                            
+  NOWSCLEAR                                                                                                                          
+    XREF(FULL)                                                                                                                       
+    YEARWINDOW(1900)                                                                                                                 
+    ZWB                                                                                                                              
+1PP 5737-L11 IBM COBOL for Linux                     1.1.0      PRIMES    Date 07/30/2021  Time 13:16:53   Page     2               
+   LineID  PL SL  ----+-*A-1-B--+----2----+----3----+----4----+----5----+----6----+----7-|--+----8 Map and Cross Reference           
+0  000001            10 * //////////////////////////////////////////////////////////         PRIME|                                  
+   000002            20 * // Name: Peter M. Maurer                                           PRIME|                                  
+   000003            30 * // Program: Sieve of Eratosthenes                                  PRIME|                                  
+   000004            40 * // Due: Never                                                      PRIME|                                  
+   000005            50 * // Language: COBOL                                                 PRIME|                                  
+   000006            60 * //                                                                 PRIME|                                  
+   000007            70 * // Changes:                                                        PRIME|                                  
+   000008            80 * // - Juergen Winkelmann, 2014/10/25, o adaption to IBM OS COBOL    PRIME|                                  
+   000009            90 * //                                   o read limit from SYSIN       PRIME|                                  
+   000010           100 * //                                   o n**2 (sqrt) shortcut        PRIME|                                  
+   000011           110 * //                                   o skip even numbers           PRIME|                                  
+   000012           120 * //                                   o compact output format       PRIME|                                  
+   000013           130 * //                                   o 32767 prime flags           PRIME|                                  
+   000014           140 * //////////////////////////////////////////////////////////         PRIME|                                  
+   000015           150 ***                                                                  PRIME|                                  
+   000016           160 ***                                                                  PRIME|                                  
+   000017           170 ***                                                                  PRIME|                                  
+   000018           180  IDENTIFICATION DIVISION.                                            PRIME|                                  
+   000019           190  PROGRAM-ID.  'PRIMES'.                                              PRIME|                                  
+   000020           200 ***                                                                  PRIME|                                  
+   000021           210 ***                                                                  PRIME|                                  
+   000022           220 ***                                                                  PRIME|                                  
+   000023           230  ENVIRONMENT DIVISION.                                               PRIME|                                  
+   000024           240 **                                                                   PRIME|                                  
+   000025           250 **                                                                   PRIME|                                  
+   000026           260  CONFIGURATION SECTION.                                              PRIME|                                  
+   000027           270  SOURCE-COMPUTER.  IBM-360.                                          PRIME|                                  
+   000028           280  OBJECT-COMPUTER.  IBM-360.                                          PRIME|                                  
+   000029           290 **                                                                   PRIME|                                  
+   000030           300 **                                                                   PRIME|                                  
+   000031           310  INPUT-OUTPUT SECTION.                                               PRIME|                                  
+   000032           320  FILE-CONTROL.                                                       PRIME|                                  
+   000033           330      SELECT PRIMES-SYSIN                                             PRIME|42                                
+   000034           340         ASSIGN TO UT-S-SYSIN.                                        PRIME|                                  
+   000035           350 ***                                                                  PRIME|                                  
+   000036           360 ***                                                                  PRIME|                                  
+   000037           370 ***                                                                  PRIME|                                  
+   000038           380  DATA DIVISION.                                                      PRIME|                                  
+   000039           390 **                                                                   PRIME|                                  
+   000040           400 **                                                                   PRIME|                                  
+   000041           410  FILE SECTION.                                                       PRIME|                                  
+   000042           420  FD  PRIMES-SYSIN                                                    PRIME|                                  
+   000043           430      RECORDING MODE IS F                                             PRIME|                                  
+   000044           440      RECORD CONTAINS 80 CHARACTERS                                   PRIME|                                  
+   000045           450      BLOCK  CONTAINS  1 RECORDS                                      PRIME|                                  
+   000046           460      LABEL RECORDS ARE OMITTED                                       PRIME|                                  
+   000047           470      DATA RECORD IS PRIMES-SYSIN-RECORD.                             PRIME|                                  
+   000048           480  01  PRIMES-SYSIN-RECORD.                                            PRIME|                                  
+   000049           490   02 PRIMES-SYSIN-NUMBER PIC 99999999 OCCURS 10.                     PRIME|                                  
+   000050           500 **                                                                   PRIME|                                  
+   000051           510 **                                                                   PRIME|                                  
+   000052           520  WORKING-STORAGE SECTION.                                            PRIME|                                  
+   000053           530  77 I PIC 99999999 COMP VALUE 1.                                     PRIME|                                  
+   000054           540  77 J PIC 99999999 COMP.                                             PRIME|                                  
+   000055           550  77 K PIC 99999999 COMP VALUE 1.                                     PRIME|                                  
+   000056           560  77 N PIC 99999999 COMP.                                             PRIME|                                  
+   000057           570  77 N-2 PIC 99999999 COMP.                                           PRIME|                                  
+1PP 5737-L11 IBM COBOL for Linux                     1.1.0      PRIMES    Date 07/30/2021  Time 13:16:53   Page     3               
+   LineID  PL SL  ----+-*A-1-B--+----2----+----3----+----4----+----5----+----6----+----7-|--+----8 Map and Cross Reference           
+0  000058           580  77 SQRTN PIC 99999999 COMP.                                         PRIME|                                  
+   000059           590  77 PRODUCT PIC 99999999 COMP.                                       PRIME|                                  
+   000060           600  01 BLANK-LINE PIC X(160).                                           PRIME|                                  
+   000061           610  01 OUT-INTEGER.                                                     PRIME|                                  
+   000062           620       02 SHOWIT PIC ZZZZZZZZ OCCURS 20.                              PRIME|                                  
+   000063           630  01 OUT REDEFINES OUT-INTEGER.                                       PRIME|61                                
+   000064           640       02 OUT-LINE PIC X(160).                                        PRIME|                                  
+   000065           650  01 PRIME-FLAGS.                                                     PRIME|                                  
+   000066           660       02 ISPRIME PIC 9 OCCURS 32767.                                 PRIME|                                  
+   000067           670 ***                                                                  PRIME|                                  
+   000068           680 ***                                                                  PRIME|                                  
+   000069           690 ***                                                                  PRIME|                                  
+   000070           700  PROCEDURE DIVISION.                                                 PRIME|                                  
+   000071           710 **                                                                   PRIME|                                  
+   000072           720 **                                                                   PRIME|                                  
+   000073           730  MAIN-PART.                                                          PRIME|                                  
+   000074           740 **   OPEN INPUT PRIMES-SYSIN.                                        PRIME|                                  
+   000075           750 **   READ PRIMES-SYSIN AT END DISPLAY '** EOF on SYSIN **'.          PRIME|                                  
+   000076           760      MOVE 500                     TO N.                              PRIME|56                                
+   000077           761      DISPLAY "Calculating for max primes:   " N.                          |56                                
+   000078           770 **   CLOSE PRIMES-SYSIN.                                             PRIME|                                  
+   000079           780      SUBTRACT 2 FROM N GIVING N-2.                                   PRIME|56 57                             
+   000080           790 *                                                                    PRIME|                                  
+   000081           800      PERFORM NEXT-SQUARE UNTIL SQRTN GREATER N.                      PRIME|58 56 126                         
+   000082           810      MOVE I TO SQRTN.                                                PRIME|53 58                             
+   000083           820 *                                                                    PRIME|                                  
+   000084           830      MOVE 3 TO I.                                                    PRIME|53                                
+   000085           840      PERFORM INIT-1 UNTIL I GREATER N.                               PRIME|53 56 102                         
+   000086           850 *                                                                    PRIME|                                  
+   000087           860      MOVE 3 TO I.                                                    PRIME|53                                
+   000088           870      PERFORM CHECK-NUMBER UNTIL I GREATER SQRTN OR EQUAL SQRTN.      PRIME|53 58 53 58 107                   
+   000089           880 *                                                                    PRIME|                                  
+   000090           890      MOVE 3 TO I.                                                    PRIME|53                                
+   000091           900      MOVE 2 TO J.                                                    PRIME|54                                
+   000092           910      MOVE J TO SHOWIT (K).                                           PRIME|54 55 62                          
+   000093           920      PERFORM PRINT UNTIL I GREATER N.                                PRIME|53 56 131                         
+   000094           930 *                                                                    PRIME|                                  
+   000095           940      MOVE K TO SHOWIT (1).                                           PRIME|55 62                             
+   000096           950      MOVE N TO SHOWIT (2).                                           PRIME|56 62                             
+   000097           960      DISPLAY ' '.                                                    PRIME|                                  
+   000098           970      DISPLAY SHOWIT (1), ' primes up to ', SHOWIT (2), ' found.'.    PRIME|62 62                             
+   000099           980      STOP RUN.                                                       PRIME|                                  
+   000100           990 **                                                                   PRIME|                                  
+   000101          1000 **                                                                   PRIME|                                  
+   000102          1010  INIT-1.                                                             PRIME|                                  
+   000103          1020      MOVE 1 TO ISPRIME (I).                                          PRIME|53 66                             
+   000104          1030      ADD 2 TO I.                                                     PRIME|53                                
+   000105          1040 **                                                                   PRIME|                                  
+   000106          1050 **                                                                   PRIME|                                  
+   000107          1060  CHECK-NUMBER.                                                       PRIME|                                  
+   000108          1070      PERFORM ADVANCE UNTIL I GREATER THAN SQRTN OR EQUAL TO SQRT     PRIME|53 58 53 58 117                   
+   000109          1080 -     N OR ISPRIME (I) EQUAL TO 1.                                   PRIME|53 66                             
+   000110          1090      IF ISPRIME (I) EQUAL TO 1                                       PRIME|53 66                             
+   000111      1   1100          ADD I I GIVING J                                            PRIME|53 53 54                          
+   000112      1   1110          MULTIPLY I BY I GIVING PRODUCT                              PRIME|53 53 59                          
+   000113      1   1120          PERFORM CROSS-OUT UNTIL PRODUCT GREATER THAN N.             PRIME|59 56 121                         
+   000114          1130      ADD 2 TO I.                                                     PRIME|53                                
+1PP 5737-L11 IBM COBOL for Linux                     1.1.0      PRIMES    Date 07/30/2021  Time 13:16:53   Page     4               
+   LineID  PL SL  ----+-*A-1-B--+----2----+----3----+----4----+----5----+----6----+----7-|--+----8 Map and Cross Reference           
+0  000115          1140 **                                                                   PRIME|                                  
+   000116          1150 **                                                                   PRIME|                                  
+   000117          1160  ADVANCE.                                                            PRIME|                                  
+   000118          1170      ADD 2 TO I.                                                     PRIME|53                                
+   000119          1180 **                                                                   PRIME|                                  
+   000120          1190 **                                                                   PRIME|                                  
+   000121          1200  CROSS-OUT.                                                          PRIME|                                  
+   000122          1210      MOVE 0 TO ISPRIME (PRODUCT).                                    PRIME|59 66                             
+   000123          1220      ADD J TO PRODUCT.                                               PRIME|54 59                             
+   000124          1230 **                                                                   PRIME|                                  
+   000125          1240 **                                                                   PRIME|                                  
+   000126          1250  NEXT-SQUARE.                                                        PRIME|                                  
+   000127          1260      ADD 1 TO I.                                                     PRIME|53                                
+   000128          1270      MULTIPLY I BY I GIVING SQRTN.                                   PRIME|53 53 58                          
+   000129          1280 **                                                                   PRIME|                                  
+   000130          1290 **                                                                   PRIME|                                  
+   000131          1300  PRINT.                                                              PRIME|                                  
+   000132          1310      IF ISPRIME (I) EQUAL TO 1                                       PRIME|53 66                             
+   000133      1   1320          MOVE I TO SHOWIT (J)                                        PRIME|53 54 62                          
+   000134      1   1330          ADD 1 TO K                                                  PRIME|55                                
+   000135      1   1340          ADD 1 TO J                                                  PRIME|54                                
+   000136      1   1350          IF J GREATER 20                                             PRIME|54                                
+   000137      2   1360              DISPLAY OUT-LINE                                        PRIME|64                                
+   000138      2   1370              MOVE BLANK-LINE TO OUT-LINE                             PRIME|60 64                             
+   000139      2   1380              MOVE 1 TO J.                                            PRIME|54                                
+   000140      1   1390      IF I GREATER N-2 AND J NOT EQUAL 1 DISPLAY OUT-LINE.            PRIME|53 57 54 64                       
+   000141          1400      ADD 2 TO I.                                                     PRIME|53                                
+1PP 5737-L11 IBM COBOL for Linux                     1.1.0      PRIMES    Date 07/30/2021  Time 13:16:53   Page     5               
+0An "M" preceding a data-name reference indicates that the data-name is modified by this reference.
+  
+  Defined   Cross-reference of data names   References                                                                               
+  
+       60   BLANK-LINE . . . . . . . . . .  138                                                                                                                                                  
+       53   I. . . . . . . . . . . . . . .  82 M84 85 M87 88 M90 93 103 M104 108 109 110 111 112 M114 M118 M127 128 132 133                                                                      
+                                            140 M141                                                                                                                                             
+       66   ISPRIME. . . . . . . . . . . .  M103 109 110 M122 132                                                                                                                                
+       54   J. . . . . . . . . . . . . . .  M91 92 M111 123 133 M135 136 M139 140                                                                                                                
+       55   K. . . . . . . . . . . . . . .  92 95 M134                                                                                                                                           
+       56   N. . . . . . . . . . . . . . .  M76 77 79 81 85 93 96 113                                                                                                                            
+       57   N-2. . . . . . . . . . . . . .  M79 140                                                                                                                                              
+       63   OUT                                                                                                                                                                                  
+       61   OUT-INTEGER. . . . . . . . . .  63                                                                                                                                                   
+       64   OUT-LINE . . . . . . . . . . .  137 M138 140                                                                                                                                         
+       65   PRIME-FLAGS                                                                                                                                                                          
+       42   PRIMES-SYSIN . . . . . . . . .  33                                                                                                                                                   
+       49   PRIMES-SYSIN-NUMBER                                                                                                                                                                  
+       48   PRIMES-SYSIN-RECORD                                                                                                                                                                  
+       59   PRODUCT. . . . . . . . . . . .  M112 113 122 M123                                                                                                                                    
+       62   SHOWIT . . . . . . . . . . . .  M92 M95 M96 98 M133                                                                                                                                  
+       58   SQRTN. . . . . . . . . . . . .  81 M82 88 108 M128                                                                                                                                   
+1PP 5737-L11 IBM COBOL for Linux                     1.1.0      PRIMES    Date 07/30/2021  Time 13:16:53   Page     6               
+0Context usage is indicated by the letter preceding a procedure-name reference.
+ These letters and their meanings are:
+     A = ALTER (procedure-name)
+     D = GO TO (procedure-name) DEPENDING ON
+     E = End of range of (PERFORM) through (procedure-name)
+     G = GO TO (procedure-name)
+     P = PERFORM (procedure-name)
+     T = (ALTER) TO PROCEED TO (procedure-name)
+     U = USE FOR DEBUGGING (procedure-name)
+  
+  Defined   Cross-reference of procedures   References                                                                               
+  
+      117   ADVANCE. . . . . . . . . . . .  P108                                                                                                                                                 
+      107   CHECK-NUMBER . . . . . . . . .  P88                                                                                                                                                  
+      121   CROSS-OUT. . . . . . . . . . .  P113                                                                                                                                                 
+      102   INIT-1 . . . . . . . . . . . .  P85                                                                                                                                                  
+       73   MAIN-PART                                                                                                                                                                            
+      126   NEXT-SQUARE. . . . . . . . . .  P81                                                                                                                                                  
+      131   PRINT. . . . . . . . . . . . .  P93                                                                                                                                                  
+1PP 5737-L11 IBM COBOL for Linux                     1.1.0      PRIMES    Date 07/30/2021  Time 13:16:53   Page     7               
+0 Defined   Cross-reference of programs     References                                                                               
+  
+       19   PRIMES                                                                                                                                                                               
+-* Statistics for COBOL program PRIMES:
+ *    Source records = 141
+ *    Data Division statements = 16
+ *    Procedure Division statements = 42
+0Locale = C.UTF.UTF-8
+0End of compilation 1,  program PRIMES,  no statements flagged.
+0Return code 0

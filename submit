@@ -1,0 +1,115 @@
+#!/bin/bash
+# copyright 2021 by moshix
+# GPL3 license
+# many, many thanks to https://www.shellcheck.net/#
+# v 0.01 Make ftp work
+# v 0.11 put sensitive variables outside script
+# v 0.12 list .vimrc changes 
+# v 0.20 display something if job was not executed
+# v 0.21 remove listing before getting out script
+# v 0.30 test for set variables before execution
+# v 0.40 beautify a bit
+# v 0.50 set passive mode for folks behind NAT on ipv4
+# v 0.60 user /tmp for temporary files...
+# v 1.00 beginning of MVS 3.8 TK4- version 
+# v 1.10 tail tk4 printer file
+# v 1.30 fixed nasty bash-related bug with spaces after EOF
+# v 1.40 fix for MVS 3.8 tk4
+# v 1.50 fix some minor typos etc., version used in Youtube video
+# v 1.60 check if FTP is installed 
+# v 1.70 remove JES2 obnoxious messaged....gee....
+# v 1.80 don't use sed becuase BSD (ie Macos) and Linux versions behave differently
+
+VERSION="1.80"
+
+# Variables used (best to supply before submit execution for security reasons 
+#user=
+#pwd=
+#host=
+arg2=$2
+mode=""
+#echo "before executiong of ifs: $user $pwd $host"
+
+check_tk4 () {
+if [[ "$arg2" == "tk4" ]]; then
+    mode="tk4"
+fi
+}
+check_vars () {
+# test if variables set before running submit and if not, abort
+if [ -n "$user" ]; then 
+   :
+else
+  echo "No user defined. export user and retry"
+fi
+
+if [ -n "$pwd" ]; then                                                            
+   : 
+else                                                                                      
+  echo "No password  defined. export pwd and retry"                               
+fi  
+
+if [ -n "$host" ]; then                                                            
+   : 
+else                                                                                      
+  echo "No remote host defined. export host and retry"                               
+fi  
+}
+
+check_tk4   # check if we are talking to MVS 3.8 TK4-
+check_vars  # check vars
+
+# does the ftp client program exist?
+if ! command -v ftp &> /dev/null
+then
+    echo "ftp client program could not be found"
+    exit
+fi
+
+# now let's check if a job was supplied
+if [ -n "$1" ]&& [[ "$mode" != "tk4" ]]; then
+    job=$1
+    output=${job%.*}
+    echo "Job not executed!! Check connection, userid,pwd and IP and retry..." >  /tmp/$output.listing
+    #echo "user: $user   pwd:******   job:$job    output:$output.listing"
+    ftp -n $host <<**
+    quote USER $user
+    quote PASS $pwd
+    passive
+    put $job
+    quote site filetype=jes
+    quote site jesjobname=* jesstatus=all jesowner=*
+    get $job /tmp/$output.listing
+    bye
+    END
+**
+#    sed "s/$JESOBNOXIOUS/d"  /tmp/$output.listing > /tmp/$output.listing.cl
+    while IFS= read line; do 
+           [[ $line =~ ^" !! END OF JES SPOOL" ]] || printf "%s\n" "$line"
+    done < /tmp/$output.listing > /tmp/$output.listing.cl
+
+    rm /tmp/$output.listing
+    mv /tmp/$output.listing.cl /tmp/$output.listing
+    cat /tmp/$output.listing #show the listing, ideally we would also use linux userid, to make multi-user friendly
+    rm /tmp/$output.listing #remove it so we don't pollute directory
+fi
+
+# let's check for TK4 case
+if [ -n "$1" ] && [[ "$mode" == "tk4" ]]; then                                  
+    job=$1
+    ftp -n $host 2300 <<**
+    $user 
+    $pwd 
+    asci
+    put $job AAINTRDR
+    quit
+**
+    echo "file submitted to MVS 3.8 TK4-"
+fi    
+
+#  .vimrc changes:
+#  nnoremap <F10>   :split new <CR>:resize 40<CR>                                  
+#  nnoremap <f11>   :% ! submit                                                    
+#  nnoremap <f8>    :set autoread | au CursorHold * checktime | call feedkeys("lh") 
+# .vimrc: set autoread   
+

